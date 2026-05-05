@@ -27,6 +27,7 @@ const TOGGLES: { key: keyof CleanOptions; label: string; hint: string }[] = [
   { key: "normalizeIndent", label: "Indent", hint: "Remove common leading indent" },
   { key: "removeDiffMarkers", label: "Diff markers", hint: "Strip + - @@ from patches" },
   { key: "smartUnwrap", label: "Smart unwrap", hint: "Join soft-wrapped paragraphs" },
+  { key: "markdownMode", label: "Markdown / Reddit", hint: "Left-trim every line and rejoin paragraphs — fixes Reddit, Discord, Slack pastes" },
   { key: "unifyLineEndings", label: "LF endings", hint: "Convert CRLF → LF" },
 ];
 

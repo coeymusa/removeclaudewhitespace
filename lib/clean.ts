@@ -9,6 +9,7 @@ export type CleanOptions = {
   unifyLineEndings: boolean;
   stripToolBrackets: boolean;
   smartUnwrap: boolean;
+  markdownMode: boolean;
 };
 
 export const defaultOptions: CleanOptions = {
@@ -22,6 +23,7 @@ export const defaultOptions: CleanOptions = {
   unifyLineEndings: true,
   stripToolBrackets: true,
   smartUnwrap: false,
+  markdownMode: false,
 };
 
 const ANSI_RE = /\x1B\[[0-9;]*[A-Za-z]/g;
@@ -87,6 +89,10 @@ export function cleanText(input: string, opts: CleanOptions): string {
     lines = smartUnwrapLines(lines);
   }
 
+  if (opts.markdownMode) {
+    lines = markdownNormalize(lines);
+  }
+
   if (opts.collapseBlankLines) {
     const collapsed: string[] = [];
     let blankRun = 0;
@@ -144,6 +150,39 @@ function smartUnwrapLines(lines: string[]): string[] {
     }
   }
   return result;
+}
+
+function markdownNormalize(lines: string[]): string[] {
+  // Group consecutive non-blank lines into paragraphs, separated by blank lines.
+  // Each paragraph's lines are left-trimmed and joined with a space, unless the
+  // paragraph looks structural (code fence, list, heading, blockquote, table).
+  const out: string[] = [];
+  let buf: string[] = [];
+
+  const flush = () => {
+    if (buf.length === 0) return;
+    const isStructural = buf.some((l) =>
+      /^\s*(```|>|#{1,6} |[-*+] |\d+\.\s|\|)/.test(l),
+    );
+    if (isStructural) {
+      // Preserve internal structure but still left-trim each line.
+      for (const l of buf) out.push(l.replace(/^[ \t]+/, ""));
+    } else {
+      out.push(buf.map((l) => l.trim()).filter(Boolean).join(" "));
+    }
+    buf = [];
+  };
+
+  for (const line of lines) {
+    if (line.trim() === "") {
+      flush();
+      out.push("");
+    } else {
+      buf.push(line);
+    }
+  }
+  flush();
+  return out;
 }
 
 export function getStats(input: string, output: string) {
