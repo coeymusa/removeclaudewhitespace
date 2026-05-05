@@ -12,6 +12,7 @@ const URLS = [
   `https://${HOST}/remove-line-numbers-from-code`,
   `https://${HOST}/clean-terminal-output`,
   `https://${HOST}/claude-code-copy-paste-fix`,
+  `https://${HOST}/built-by`,
   `https://${HOST}/about`,
 ];
 

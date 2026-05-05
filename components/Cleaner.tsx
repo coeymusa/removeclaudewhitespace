@@ -7,6 +7,7 @@ import {
   defaultOptions,
   getStats,
 } from "@/lib/clean";
+import { DEV_RELEVANT } from "@/lib/projects";
 
 const SAMPLE = `   1\t●  function greetUser(name: string) {
    2\t│    console.log(\`Hello, \${name}!\`);
@@ -35,9 +36,15 @@ export default function Cleaner() {
   const [input, setInput] = useState("");
   const [opts, setOpts] = useState<CleanOptions>(defaultOptions);
   const [copied, setCopied] = useState(false);
+  const [copyCount, setCopyCount] = useState(0);
+  const [showPromo, setShowPromo] = useState(false);
+  const [promoDismissed, setPromoDismissed] = useState(false);
 
   const output = useMemo(() => cleanText(input, opts), [input, opts]);
   const stats = useMemo(() => getStats(input, output), [input, output]);
+
+  // Pick a dev-relevant project to feature based on copy count, so repeat users see different ones
+  const promoProject = DEV_RELEVANT[copyCount % DEV_RELEVANT.length];
 
   useEffect(() => {
     if (!copied) return;
@@ -45,10 +52,30 @@ export default function Cleaner() {
     return () => clearTimeout(t);
   }, [copied]);
 
+  // Surface the cross-promo only after the first successful copy, and only if user hasn't dismissed it
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (localStorage.getItem("rcw_promo_dismissed") === "1") {
+      setPromoDismissed(true);
+    }
+  }, []);
+
   const onCopy = async () => {
     try {
       await navigator.clipboard.writeText(output);
       setCopied(true);
+      setCopyCount((c) => c + 1);
+      if (!promoDismissed) {
+        setShowPromo(true);
+      }
+    } catch {}
+  };
+
+  const onDismissPromo = () => {
+    setShowPromo(false);
+    setPromoDismissed(true);
+    try {
+      localStorage.setItem("rcw_promo_dismissed", "1");
     } catch {}
   };
 
@@ -138,6 +165,50 @@ export default function Cleaner() {
           );
         })}
       </div>
+
+      {/* Cross-promo toast — appears after first copy, dismissable, persisted in localStorage */}
+      {showPromo && !promoDismissed && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-5 right-5 z-50 max-w-sm rounded-2xl border border-ink-200 bg-white shadow-xl p-5 animate-slide-up"
+        >
+          <button
+            onClick={onDismissPromo}
+            aria-label="Dismiss"
+            className="absolute top-3 right-3 text-ink-300 hover:text-ink-700 text-lg leading-none"
+          >
+            ×
+          </button>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-accent">
+              From the same maker
+            </span>
+          </div>
+          <h3 className="text-base font-semibold text-ink-900 mb-1">
+            {promoProject.name}
+          </h3>
+          <p className="text-sm text-ink-500 leading-relaxed mb-3">
+            {promoProject.tagline}
+          </p>
+          <div className="flex items-center gap-3">
+            <a
+              href={promoProject.url}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-900 hover:text-accent transition"
+            >
+              Visit {promoProject.domain} →
+            </a>
+            <a
+              href="/built-by"
+              className="text-xs text-ink-400 hover:text-ink-700 transition"
+            >
+              see all
+            </a>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

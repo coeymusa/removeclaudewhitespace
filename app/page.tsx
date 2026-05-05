@@ -1,5 +1,6 @@
 import Cleaner from "@/components/Cleaner";
 import Link from "next/link";
+import { PROJECTS } from "@/lib/projects";
 
 export default function HomePage() {
   return (
@@ -16,6 +17,9 @@ export default function HomePage() {
           <nav className="flex items-center gap-5 text-xs font-medium text-ink-500">
             <a href="#how" className="hover:text-ink-900 transition">How it works</a>
             <a href="#faq" className="hover:text-ink-900 transition">FAQ</a>
+            <Link href="/built-by" className="hover:text-ink-900 transition">
+              Built by
+            </Link>
             <a
               href="https://github.com/coeymusa/removeclaudewhitespace"
               target="_blank"
@@ -273,6 +277,57 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Other projects */}
+      <section className="border-t border-ink-200/80 bg-ink-50">
+        <div className="max-w-6xl mx-auto px-5 lg:px-8 py-16 lg:py-20">
+          <div className="flex items-end justify-between mb-8 gap-4 flex-wrap">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-accent">
+                More from the same maker
+              </span>
+              <h2 className="mt-3 text-3xl lg:text-4xl font-semibold tracking-tight text-ink-900">
+                Other things I&apos;ve built
+              </h2>
+            </div>
+            <Link
+              href="/built-by"
+              className="text-sm font-medium text-ink-700 hover:text-accent transition"
+            >
+              See all →
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {PROJECTS.slice(0, 4).map((p) => (
+              <a
+                key={p.slug}
+                href={p.url}
+                target="_blank"
+                rel="noopener"
+                className="group p-5 rounded-xl bg-white border border-ink-200 hover:border-ink-900 transition"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink-400">
+                    {p.category}
+                  </span>
+                  <span className="text-ink-300 group-hover:text-accent group-hover:translate-x-1 transition-all">
+                    →
+                  </span>
+                </div>
+                <h3 className="text-base font-semibold text-ink-900 mb-1">
+                  {p.name}
+                </h3>
+                <p className="font-mono text-[10px] text-ink-400 mb-2">
+                  {p.domain}
+                </p>
+                <p className="text-xs text-ink-500 leading-relaxed line-clamp-3">
+                  {p.tagline}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-ink-200/80 bg-ink-900 text-ink-300">
         <div className="max-w-6xl mx-auto px-5 lg:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -282,8 +337,18 @@ export default function HomePage() {
               remove<span className="text-accent">claude</span>whitespace
             </span>
           </div>
-          <div className="text-xs text-ink-400">
-            Built for developers who copy-paste from Claude Code 100 times a day.
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-xs text-ink-400">
+            <a
+              href="https://coreyscodecave.com"
+              target="_blank"
+              rel="noopener"
+              className="hover:text-white transition"
+            >
+              Built by Corey · coreyscodecave.com
+            </a>
+            <Link href="/built-by" className="hover:text-white transition">
+              Other projects
+            </Link>
           </div>
         </div>
       </footer>

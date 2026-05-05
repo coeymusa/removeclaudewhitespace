@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE}/remove-line-numbers-from-code`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/clean-terminal-output`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/claude-code-copy-paste-fix`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/built-by`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 }
