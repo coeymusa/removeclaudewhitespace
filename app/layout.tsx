@@ -14,7 +14,7 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://removclaudewhitespace.com";
+const SITE_URL = "https://removeclaudewhitespace.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

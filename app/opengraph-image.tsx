@@ -51,7 +51,7 @@ export default function OG() {
               color: "#a8a8b3",
             }}
           >
-            removclaudewhitespace.com
+            removeclaudewhitespace.com
           </div>
         </div>
 

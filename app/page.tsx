@@ -10,7 +10,7 @@ export default function HomePage() {
           <Link href="/" className="flex items-center gap-2">
             <Logo />
             <span className="font-mono text-[13px] tracking-tight text-ink-900">
-              remove<span className="text-accent">claude</span>whitespace
+              remove<span className="text-accent">claude</span>whitespace.com
             </span>
           </Link>
           <nav className="flex items-center gap-5 text-xs font-medium text-ink-500">

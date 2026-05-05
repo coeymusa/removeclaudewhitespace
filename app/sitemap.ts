@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE = "https://removclaudewhitespace.com";
+const SITE = "https://removeclaudewhitespace.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
