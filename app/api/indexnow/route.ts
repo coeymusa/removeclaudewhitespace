@@ -8,6 +8,10 @@ const URLS = [
   `https://${HOST}/`,
   `https://${HOST}/why-claude-code-output-is-messy`,
   `https://${HOST}/how-to-clean-claude-code-output`,
+  `https://${HOST}/strip-ansi-codes-online`,
+  `https://${HOST}/remove-line-numbers-from-code`,
+  `https://${HOST}/clean-terminal-output`,
+  `https://${HOST}/claude-code-copy-paste-fix`,
   `https://${HOST}/about`,
 ];
 

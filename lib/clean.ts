@@ -23,7 +23,7 @@ export const defaultOptions: CleanOptions = {
   unifyLineEndings: true,
   stripToolBrackets: true,
   smartUnwrap: false,
-  markdownMode: false,
+  markdownMode: true,
 };
 
 const ANSI_RE = /\x1B\[[0-9;]*[A-Za-z]/g;

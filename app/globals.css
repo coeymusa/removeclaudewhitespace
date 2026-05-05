@@ -64,3 +64,11 @@
   0% { background-position: -1000px 0; }
   100% { background-position: 1000px 0; }
 }
+
+.prose-content .cd {
+  @apply px-1.5 py-0.5 rounded bg-ink-100 font-mono text-[12px] text-ink-700;
+}
+
+.prose-content code {
+  @apply px-1.5 py-0.5 rounded bg-ink-100 font-mono text-[12px] text-ink-700;
+}

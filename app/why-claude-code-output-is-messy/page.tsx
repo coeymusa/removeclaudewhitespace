@@ -12,9 +12,39 @@ export const metadata: Metadata = {
   },
 };
 
+const articleLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      headline: "Why Claude Code Output Pastes Messy (and How to Fix It)",
+      description:
+        "Deep dive into why text copied from Claude Code, terminals, and AI assistants includes line numbers, ANSI codes, and box-drawing — and how to strip them in seconds.",
+      mainEntityOfPage: "https://removeclaudewhitespace.com/why-claude-code-output-is-messy",
+      url: "https://removeclaudewhitespace.com/why-claude-code-output-is-messy",
+      datePublished: "2026-05-05",
+      dateModified: "2026-05-05",
+      author: { "@type": "Organization", name: "Remove Claude Whitespace" },
+      publisher: {
+        "@type": "Organization",
+        name: "Remove Claude Whitespace",
+        url: "https://removeclaudewhitespace.com/",
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://removeclaudewhitespace.com/" },
+        { "@type": "ListItem", position: 2, name: "Why Claude Code output pastes messy", item: "https://removeclaudewhitespace.com/why-claude-code-output-is-messy" },
+      ],
+    },
+  ],
+};
+
 export default function Page() {
   return (
     <main className="min-h-screen bg-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
       <header className="border-b border-ink-200/80 bg-ink-50/80 backdrop-blur-md">
         <div className="max-w-3xl mx-auto px-5 lg:px-8 h-14 flex items-center justify-between">
           <Link href="/" className="font-mono text-[13px] text-ink-900">

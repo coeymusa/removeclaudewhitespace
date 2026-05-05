@@ -8,9 +8,36 @@ export const metadata: Metadata = {
   alternates: { canonical: "/how-to-clean-claude-code-output" },
 };
 
+const howToLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HowTo",
+      name: "How to clean Claude Code output",
+      description:
+        "Step-by-step guide to removing line numbers, ANSI codes, and whitespace noise from Claude Code output before pasting into your editor.",
+      totalTime: "PT30S",
+      step: [
+        { "@type": "HowToStep", position: 1, name: "Copy from Claude Code", text: "Select the snippet you want — code, log output, a tool result." },
+        { "@type": "HowToStep", position: 2, name: "Paste into the cleaner", text: "Open the cleaner and paste into the left textarea. The right panel updates live." },
+        { "@type": "HowToStep", position: 3, name: "Toggle transforms", text: "Defaults strip line numbers, ANSI codes, box-drawing, and trailing whitespace. Toggle off any transform that's eating something you wanted to keep." },
+        { "@type": "HowToStep", position: 4, name: "Click copy", text: "The 'copy' button puts the clean output on your clipboard." },
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://removeclaudewhitespace.com/" },
+        { "@type": "ListItem", position: 2, name: "How to clean Claude Code output", item: "https://removeclaudewhitespace.com/how-to-clean-claude-code-output" },
+      ],
+    },
+  ],
+};
+
 export default function Page() {
   return (
     <main className="min-h-screen bg-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }} />
       <header className="border-b border-ink-200/80 bg-ink-50/80 backdrop-blur-md">
         <div className="max-w-3xl mx-auto px-5 lg:px-8 h-14 flex items-center justify-between">
           <Link href="/" className="font-mono text-[13px] text-ink-900">

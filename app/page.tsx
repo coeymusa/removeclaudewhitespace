@@ -28,31 +28,130 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Tool — first thing on the page */}
       <section className="relative grid-bg border-b border-ink-200/80">
-        <div className="max-w-6xl mx-auto px-5 lg:px-8 pt-16 lg:pt-24 pb-10 lg:pb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-ink-200 bg-white text-[11px] font-mono uppercase tracking-wider text-ink-500 mb-6 animate-fade-in">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-slow" />
-            Free · Client-side · No signup
+        <div className="max-w-6xl mx-auto px-5 lg:px-8 pt-8 lg:pt-10 pb-10 lg:pb-14">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-5">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-ink-200 bg-white text-[11px] font-mono uppercase tracking-wider text-ink-500 mb-3 animate-fade-in">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-slow" />
+                Free · Client-side · No signup
+              </div>
+              <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink-900 leading-[1.1] animate-slide-up">
+                Remove Claude Code whitespace{" "}
+                <span className="relative inline-block">
+                  <span className="relative z-10">in one paste</span>
+                  <span className="absolute inset-x-0 bottom-1 h-3 bg-accent/30 -z-0" />
+                </span>
+                .
+              </h1>
+              <p className="mt-2 max-w-2xl text-base text-ink-500 leading-relaxed text-balance">
+                Paste fragmented terminal output, get clean paste-ready text — for code editors, Reddit, Discord, Slack, anywhere.
+              </p>
+            </div>
           </div>
-          <h1 className="text-balance text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink-900 max-w-3xl leading-[1.05] animate-slide-up">
-            Clean up Claude Code output{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">in one paste</span>
-              <span className="absolute inset-x-0 bottom-1 h-3 bg-accent/30 -z-0" />
-            </span>
-            .
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg text-ink-500 leading-relaxed text-balance animate-slide-up">
-            Paste fragmented terminal output — line numbers, ANSI codes, box-drawing,
-            indentation noise — get clean, paste-ready code instantly.
-          </p>
+          <Cleaner />
         </div>
       </section>
 
-      {/* Tool */}
-      <section className="max-w-6xl mx-auto px-5 lg:px-8 py-10 lg:py-14">
-        <Cleaner />
+      {/* SEO body content — ~600 words */}
+      <section className="border-b border-ink-200/80 bg-white">
+        <div className="max-w-3xl mx-auto px-5 lg:px-8 py-14 lg:py-20 prose-content">
+          <h2 className="text-2xl lg:text-3xl font-semibold tracking-tight text-ink-900">
+            What is Claude Code whitespace, and why does it ruin your paste?
+          </h2>
+          <div className="mt-6 space-y-5 text-ink-700 leading-relaxed">
+            <p>
+              <strong className="text-ink-900">Claude Code</strong> is Anthropic&apos;s
+              terminal-based coding assistant. It&apos;s wonderful to work with, but
+              its output is rendered for a terminal — meaning every snippet you copy
+              comes wrapped in line-number prefixes, ANSI colour codes, Unicode
+              box-drawing characters, tool-call bullet markers, and a leading indent
+              of UI padding. None of that belongs in your editor, your Reddit post,
+              or your Slack message.
+            </p>
+            <p>
+              The whitespace problem is the worst of it. When Claude Code displays a
+              file via the Read tool, it prefixes every line with a tab and a line
+              number — <code className="cd">1\t</code>, <code className="cd">2\t</code>,
+              and so on. Tool-call frames add a 2 to 4 space leading indent. Soft-wrap
+              from your terminal width injects hard line breaks mid-sentence. By the
+              time you paste it into VS Code or a markdown surface like Reddit, your
+              code is broken and your prose is fragmented.
+            </p>
+
+            <h3 className="text-xl font-semibold text-ink-900 pt-4">
+              Why a quick find-and-replace doesn&apos;t work
+            </h3>
+            <p>
+              You can hand-craft a regex to strip line numbers. You can bulk-delete
+              ANSI codes if you remember the escape sequence. But the moment you have
+              a paragraph that&apos;s been soft-wrapped at column 80 mixed in with
+              code blocks that need their indentation preserved, regex becomes a
+              minefield. This tool runs ten different transforms — each toggleable —
+              so you don&apos;t have to think about edge cases.
+            </p>
+
+            <h3 className="text-xl font-semibold text-ink-900 pt-4">
+              What this cleaner actually does
+            </h3>
+            <p>
+              By default it strips line-number prefixes (both tab- and pipe-delimited),
+              removes ANSI escape sequences, deletes Unicode box-drawing characters,
+              clears tool-call bullet markers (●, ⏺, ⏵), trims trailing whitespace,
+              normalises indentation, and runs a Markdown / Reddit pass that left-trims
+              every line and rejoins soft-wrapped paragraphs while preserving code
+              fences, lists, and headings. The result is text that pastes cleanly into
+              any editor or markdown surface.
+            </p>
+
+            <h3 className="text-xl font-semibold text-ink-900 pt-4">
+              Where this tool helps
+            </h3>
+            <ul className="list-disc pl-6 space-y-1.5">
+              <li>
+                <strong>Pasting Claude Code output into VS Code, Cursor, Sublime,
+                JetBrains</strong> — strips the line numbers and leading indent.
+              </li>
+              <li>
+                <strong>Pasting into Reddit, Discord, Slack</strong> — fixes
+                soft-wrap line breaks and 2-space indents that break markdown.
+              </li>
+              <li>
+                <strong>Quoting Claude Code in a blog post or PR description</strong> —
+                clean prose, no terminal artefacts.
+              </li>
+              <li>
+                <strong>Bug reports and Stack Overflow answers</strong> — paste the
+                tool output without the noise.
+              </li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-ink-900 pt-4">
+              Privacy: nothing leaves your browser
+            </h3>
+            <p>
+              Every transform runs locally as JavaScript. Open DevTools, watch the
+              Network tab, paste a snippet — you&apos;ll see no outbound requests for
+              your content. That matters when you&apos;re cleaning code that contains
+              tokens, internal hostnames, or anything proprietary. There is no
+              account, no quota, no log of what you paste.
+            </p>
+
+            <h3 className="text-xl font-semibold text-ink-900 pt-4">
+              Other terminal output it cleans
+            </h3>
+            <p>
+              The same transforms apply to output from any terminal-rendered AI
+              assistant: <Link href="/strip-ansi-codes-online" className="text-accent underline underline-offset-4">stripping ANSI escape codes</Link>,
+              {" "}<Link href="/remove-line-numbers-from-code" className="text-accent underline underline-offset-4">removing line numbers</Link>,
+              {" "}<Link href="/clean-terminal-output" className="text-accent underline underline-offset-4">cleaning terminal output</Link>,
+              and <Link href="/claude-code-copy-paste-fix" className="text-accent underline underline-offset-4">fixing Claude Code copy-paste issues</Link> all
+              work on output from Cursor, Aider, Codex CLI, Gemini CLI, Warp, and
+              traditional shells.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* How it works */}
