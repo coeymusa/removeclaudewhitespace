@@ -124,16 +124,22 @@ export default function Cleaner() {
             }
           />
           <div className="relative">
-            <pre className="w-full h-[420px] lg:h-[520px] overflow-auto rounded-2xl border border-ink-900 bg-ink-900 px-5 py-4 font-mono text-[13px] leading-[1.65] text-ink-100 scrollbar-thin">
-              {output || (
-                <span className="text-ink-500">
-                  Your cleaned output will appear here.
-                </span>
-              )}
-            </pre>
+            <textarea
+              value={output}
+              readOnly
+              spellCheck={false}
+              placeholder="Your cleaned output will appear here."
+              onFocus={(e) => e.currentTarget.select()}
+              onClick={(e) => {
+                if (e.currentTarget.selectionStart === e.currentTarget.selectionEnd) {
+                  e.currentTarget.select();
+                }
+              }}
+              className="w-full h-[420px] lg:h-[520px] resize-none rounded-2xl border border-ink-900 bg-ink-900 px-5 py-4 font-mono text-[13px] leading-[1.65] text-ink-100 placeholder:text-ink-500 outline-none scrollbar-thin"
+            />
             {output && (
-              <div className="absolute bottom-3 right-3 text-[10px] uppercase tracking-wider text-ink-500 font-mono pointer-events-none">
-                ready to paste
+              <div className="absolute bottom-3 right-3 text-[10px] uppercase tracking-wider text-ink-500 font-mono pointer-events-none select-none">
+                ⌘/Ctrl+A · Ctrl+C
               </div>
             )}
           </div>
