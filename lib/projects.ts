@@ -73,15 +73,6 @@ export const PROJECTS: Project[] = [
     category: "Platform",
     devRelevant: false,
   },
-  {
-    slug: "rugbycv",
-    name: "Rugby CV",
-    domain: "rugbyunlocked.com",
-    url: "https://rugbyunlocked.com",
-    tagline: "Computer vision pipeline for automated rugby match analysis.",
-    category: "ML / CV",
-    devRelevant: false,
-  },
 ];
 
 export const DEV_RELEVANT = PROJECTS.filter((p) => p.devRelevant);
